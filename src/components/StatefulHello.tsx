@@ -1,5 +1,3 @@
-import './Hello.css';
-
 import * as React from 'react';
 
 export interface Props {
@@ -7,24 +5,44 @@ export interface Props {
   enthusiasmLevel?: number;
 }
 
-// SFC (stateless function component)
-class Hello extends React.Component<Props, object> {
-  // Props: type of this.props
-  // object: type of this.state
-  render() {
-    const {name, enthusiasmLevel = 1} = this.props;
+interface State {
+  currentEnthusiasm: number;
+}
 
-    if (enthusiasmLevel <= 0) {
+// SFC (stateless function component)
+class Hello extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+
+    this.state = {
+      currentEnthusiasm: props.enthusiasmLevel || 1
+    };
+  }
+
+  onIncrement = () => this.updateEnthusiasm(this.state.currentEnthusiasm + 1);
+
+  onDecrement = () => this.updateEnthusiasm(this.state.currentEnthusiasm - 1);
+
+  render() {
+    const {name } = this.props;
+
+    if (this.state.currentEnthusiasm <= 0) {
       throw new Error('You could be a little more enthusiastic. :D');
     }
 
     return (
       <div className="hello">
         <div className="greeting">
-          Hello {name + getExclamationMarks(enthusiasmLevel)}
+          Hello {name + getExclamationMarks(this.state.currentEnthusiasm)}
         </div>
+        <button onClick={this.onDecrement}>-</button>
+        <button onClick={this.onIncrement}>+</button>
       </div>
-    )
+    );
+  }
+
+  updateEnthusiasm(currentEnthusiasm: number) {
+    this.setState({ currentEnthusiasm });
   }
 }
 

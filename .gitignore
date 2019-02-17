@@ -3,6 +3,10 @@
 # dependencies
 /node_modules
 
+# Editors
+.vscode
+.idea
+
 # testing
 /coverage
 
