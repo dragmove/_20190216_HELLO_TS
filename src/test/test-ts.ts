@@ -93,7 +93,7 @@ class Bicycle {
 }
 
 class MountainBike extends Bicycle {
-  private inch: number = 15;
+  // private inch: number = 15;
   public flashLight: FlashLight;
 
   constructor(public numberOfWheel: number, public hasBackSaddle: boolean) {
@@ -102,9 +102,11 @@ class MountainBike extends Bicycle {
     this.flashLight = new FlashLight(99);
   }
 
+  /*
   private getInch(): number {
     return this.inch;
   }
+  */
 
   public getHasBackSaddle(): boolean {
     return this.hasBackSaddle;
