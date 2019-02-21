@@ -36,6 +36,7 @@ export default Counter;
 import * as React from 'react';
 import { observer, inject } from 'mobx-react';
 import CounterStore from './stores/counterStore';
+import DevTools from 'mobx-react-devtools';
 
 interface Props {
   counterStore?: CounterStore
@@ -59,6 +60,7 @@ class Counter extends React.Component<Props> {
         <h1>{counterStore!.val}</h1>
         <button onClick={counterStore!.increase}>+1</button>
         <button onClick={counterStore!.decrease}>-1</button>
+        {process.env.NODE_ENV === 'development' && <DevTools />}
       </div>
     );
   }
