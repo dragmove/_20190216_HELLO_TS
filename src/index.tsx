@@ -29,14 +29,14 @@ ReactDOM.render(
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'mobx-react';
-import Counter from './Counter';
-import CounterStore from './stores/counterStore';
+import CounterStore from './stores/CounterStore';
+import App from './App';
 
 const counterStore: CounterStore = new CounterStore();
 
 ReactDOM.render(
   <Provider counterStore={counterStore}>
-    <Counter />
+    <App />
   </Provider>,
   document.getElementById('root') as HTMLElement
 )
