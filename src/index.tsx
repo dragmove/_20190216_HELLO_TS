@@ -40,3 +40,38 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root') as HTMLElement
 )
+
+// showdown
+const showdown = require('showdown');
+const  converter = new showdown.Converter({
+    noHeaderId: false
+  }),
+  text = '# hello, markdown!',
+  html = converter.makeHtml(text);
+  
+  console.log('html :', html);
+
+// marked
+// https://marked.js.org/#/USING_ADVANCED.md#options
+const marked = require('marked');
+marked.setOptions({
+  // baseUrl
+  breaks: false,
+  gfm: true,
+  headerIds: false,
+  // headerPrefix
+  // highlight: (code) => require('highlight.js').highlightAuto(code).value,
+  // langPrefix: 'language-',
+  // mangle: true,
+  pedantic: false,
+  renderer: new marked.Renderer(),
+  sanitize: false,
+  // sanitizer: function() {},
+  smartLists: true,
+  smartypants: false,
+  tables: true,
+  xhtml: false
+});
+
+// Compile
+console.log(marked('I am using __markdown__.'));
