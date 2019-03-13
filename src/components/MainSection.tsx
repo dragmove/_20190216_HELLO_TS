@@ -1,12 +1,16 @@
-import React, { Component } from "react"
+import * as React from "react"
 import TodoItem from "./TodoItem"
 import Footer from "./Footer"
 import { observer } from "mobx-react"
 
+interface Props {
+    store: any;
+}
+
 // props.store 로 store 가 주입되었다.
 // view component 에서 store 의 actions 에 등록된 method 들을 직접 호출하고 있다.
 export default observer(
-    class MainSection extends Component {
+    class MainSection extends React.Component<Props> {
         handleClearCompleted = () => {
             this.props.store.clearCompleted()
         }

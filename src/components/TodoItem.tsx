@@ -1,10 +1,14 @@
-import React, { Component } from "react"
+import * as React from "react"
 import classnames from "classnames"
 import TodoTextInput from "./TodoTextInput"
 import { observer } from "mobx-react"
 
+interface Props {
+    todo: any;
+}
+
 export default observer(
-    class TodoItem extends Component {
+    class TodoItem extends React.Component<Props> {
         state = {
             editing: false
         }
@@ -13,7 +17,7 @@ export default observer(
             this.setState({ editing: true })
         }
 
-        handleSave = (id, text) => {
+        handleSave = (id: number, text: string) => {
             const { todo } = this.props
             if (text.length === 0) {
                 todo.remove()
@@ -33,7 +37,7 @@ export default observer(
                     <TodoTextInput
                         text={todo.text}
                         editing={this.state.editing}
-                        onSave={text => this.handleSave(todo.id, text)}
+                        onSave={(text: string) => this.handleSave(todo.id, text)}
                     />
                 )
             } else {

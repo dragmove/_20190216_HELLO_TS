@@ -21,7 +21,7 @@ const Todo = types
     remove() {
       getRoot(self).removeTodo(self);
     },
-    edit(text) {
+    edit(text: string) {
       self.text = text;
     },
     complete() {
@@ -36,10 +36,12 @@ const TodoStore = types
   })
   .views(self => ({
     // self is TodoStore
-    get completedCount() {
-      return self.todos.reduce((count, todo) => (todo.completed ? count + 1 : count), 0);
+    get completedCount(): number {
+      // TODO:
+      return self.todos.reduce((count: number, todo) => (todo.completed ? count + 1 : count), 0);
     },
-    get activeCount() {
+    get activeCount(): number {
+      // TODO:
       return self.todos.length - self.completedCount;
     },
     get filteredTodos() {
@@ -48,7 +50,7 @@ const TodoStore = types
   }))
   .actions(self => ({
     // self is TodoStore
-    addTodo(text) {
+    addTodo(text: string) {
       const id = self.todos.reduce((maxId, todo) => Math.max(todo.id, maxId), -1) + 1;
       self.todos.unshift({
         id,

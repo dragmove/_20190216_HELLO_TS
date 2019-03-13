@@ -1,12 +1,29 @@
-import React, { Component } from "react"
+import React, { Component, KeyboardEvent, KeyboardEventHandler} from "react"
 import classnames from "classnames"
 
-export default class TodoTextInput extends Component {
+interface Props {
+    text: string;
+    editing: boolean;
+    newTodo: any; // TODO: define detail
+    placeholder: string;
+}
+
+enum EventType {
+    Mouse,
+    Keyboard
+}
+
+interface Event { timestamp: number; }
+interface KeyEvent extends Event {
+    target: any;
+}
+
+export default class TodoTextInput extends Component<Props> {
     state = {
         text: this.props.text || ""
     }
 
-    handleSubmit = e => {
+    handleSubmit: KeyboardEventHandler = (e: KeyboardEvent) => {
         const text = e.target.value.trim()
         
         if (e.which === 13) {
@@ -18,7 +35,7 @@ export default class TodoTextInput extends Component {
         }
     }
 
-    handleChange = e => {
+    handleChange = (e:KeyboardEvent)  => {
         this.setState({ text: e.target.value })
     }
 

@@ -3,6 +3,10 @@ import classnames from "classnames"
 import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from "../constants/TodoFilters"
 import { observer } from "mobx-react"
 
+interface Props {
+    store: any;
+}
+
 const FILTER_TITLES = {
     [SHOW_ALL]: "All",
     [SHOW_ACTIVE]: "Active",
@@ -10,7 +14,7 @@ const FILTER_TITLES = {
 }
 
 export default observer(
-    class Footer extends Component {
+    class Footer extends Component<Props> {
         renderTodoCount() {
             // prop 으로 TodoStore 를 주입 받음.
             const { activeCount } = this.props.store
@@ -23,7 +27,7 @@ export default observer(
             )
         }
 
-        renderFilterLink(filter) {
+        renderFilterLink(filter: string) {
             const title = FILTER_TITLES[filter]
             const { store } = this.props
             const selectedFilter = store.filter
@@ -49,6 +53,8 @@ export default observer(
                     </button>
                 )
             }
+
+            return null;
         }
 
         render() {

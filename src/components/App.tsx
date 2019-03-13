@@ -1,8 +1,12 @@
-import * as React from "react"
+import React from "react"
 import Header from "../components/Header"
 import MainSection from "../components/MainSection"
 
-const App = ({ store }) => (
+type AppProps = {
+    store: any
+}
+
+const App = ({ store }: AppProps) => (
     <div>
         {
             // Header 내부의 하위 컴포넌트부터 입력된 UI 조작으로 store 에 직접 action method 를 호출하고 있다.

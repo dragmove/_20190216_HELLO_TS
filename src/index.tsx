@@ -8,7 +8,7 @@ import App from "./components/App"
 import TodoStore from "./models/todos"
 
 // const
-const localStorageKey = "mst-todomvc-example"
+const localStorageKey:string = "mst-todomvc-example"
 
 // variables
 const initialState = localStorage.getItem(localStorageKey)
@@ -28,7 +28,7 @@ const initialState = localStorage.getItem(localStorageKey)
           ]
       }
 
-let store;
+let store: any;
 let snapshotListener;
 
 // implement
