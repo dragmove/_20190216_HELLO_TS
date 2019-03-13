@@ -1,4 +1,4 @@
-import * as React from "react"
+import React, { Component, ReactNode } from "react"
 import TodoItem from "./TodoItem"
 import Footer from "./Footer"
 import { observer } from "mobx-react"
@@ -10,12 +10,12 @@ interface Props {
 // props.store 로 store 가 주입되었다.
 // view component 에서 store 의 actions 에 등록된 method 들을 직접 호출하고 있다.
 export default observer(
-    class MainSection extends React.Component<Props> {
-        handleClearCompleted = () => {
+    class MainSection extends Component<Props> {
+        handleClearCompleted = (): void => {
             this.props.store.clearCompleted()
         }
 
-        renderToggleAll() {
+        renderToggleAll(): ReactNode | null {
             const { store } = this.props
             if (store.todos.length > 0) {
                 return (
@@ -38,9 +38,11 @@ export default observer(
                     </span>
                 )
             }
+
+            return null;
         }
 
-        renderFooter(completedCount) {
+        renderFooter(): ReactNode | null {
             const { store } = this.props
 
             /// store 의 todos model 변수에 직접 접근함 // store.todos.length
@@ -48,9 +50,11 @@ export default observer(
             if (store.todos.length) {
                 return <Footer store={store} />
             }
+
+            return null;
         }
 
-        render() {
+        render(): ReactNode {
             // TodoStore 의 view 메소드 getter filteredTodos 에 직접 접근함
             const { filteredTodos } = this.props.store
 
@@ -62,7 +66,7 @@ export default observer(
                         {
                             // TodoStore 의 filteredTodos 의 todo model 들을 <TodoItem> 컴포넌트에 주입
                         }
-                        {filteredTodos.map(todo => <TodoItem key={todo.id} todo={todo} />)}
+                        {filteredTodos.map( (todo: any) => <TodoItem key={todo.id} todo={todo} />)}
                     </ul>
 
                     {this.renderFooter()}

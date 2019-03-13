@@ -1,54 +1,50 @@
-import React, { Component, KeyboardEvent, KeyboardEventHandler} from "react"
-import classnames from "classnames"
+import React, { Component, ReactNode, KeyboardEvent, FocusEvent, ChangeEvent} from "react"
+const classNames = require("classnames");
 
 interface Props {
+    text?: string;
+    editing?: boolean;
+    newTodo?: any; // TODO: define detail
+    placeholder?: string;
+    onSave?: any; // TODO: define detail
+}
+
+interface State {
     text: string;
-    editing: boolean;
-    newTodo: any; // TODO: define detail
-    placeholder: string;
 }
 
-enum EventType {
-    Mouse,
-    Keyboard
-}
-
-interface Event { timestamp: number; }
-interface KeyEvent extends Event {
-    target: any;
-}
-
-export default class TodoTextInput extends Component<Props> {
-    state = {
-        text: this.props.text || ""
+export default class TodoTextInput extends Component<Props, State> {
+    state: State = {
+        text: this.props.text || ''
     }
 
-    handleSubmit: KeyboardEventHandler = (e: KeyboardEvent) => {
-        const text = e.target.value.trim()
+    handleSubmit = (evt: KeyboardEvent<HTMLInputElement>): void => {
+        const target = evt.target as HTMLInputElement;
+        const text: string = target.value.trim();
         
-        if (e.which === 13) {
+        if (evt.which === 13) {
             this.props.onSave(text)
 
             if (this.props.newTodo) {
-                this.setState({ text: "" })
+                this.setState({ text: '' })
             }
         }
     }
 
-    handleChange = (e:KeyboardEvent)  => {
-        this.setState({ text: e.target.value })
+    handleChange = (evt: ChangeEvent<HTMLInputElement>): void => {
+        this.setState({ text: evt.target.value })
     }
 
-    handleBlur = e => {
+    handleBlur = (evt: FocusEvent<HTMLInputElement>): void => {
         if (!this.props.newTodo) {
-            this.props.onSave(e.target.value)
+            this.props.onSave(evt.target.value)
         }
     }
 
-    render() {
+    render(): ReactNode {
         return (
             <input
-                className={classnames({
+                className={classNames({
                     edit: this.props.editing,
                     "new-todo": this.props.newTodo
                 })}

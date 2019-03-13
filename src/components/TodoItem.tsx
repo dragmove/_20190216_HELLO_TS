@@ -1,14 +1,14 @@
-import * as React from "react"
-import classnames from "classnames"
+import React, { Component } from "react"
 import TodoTextInput from "./TodoTextInput"
 import { observer } from "mobx-react"
+const classNames = require("classnames");
 
 interface Props {
     todo: any;
 }
 
 export default observer(
-    class TodoItem extends React.Component<Props> {
+    class TodoItem extends Component<Props> {
         state = {
             editing: false
         }
@@ -31,7 +31,8 @@ export default observer(
             // TodoStore 의 todos 하위의 todo model 을 주입
             const { todo } = this.props
 
-            let element
+            let element: any;
+
             if (this.state.editing) {
                 element = (
                     <TodoTextInput
@@ -65,7 +66,7 @@ export default observer(
 
             return (
                 <li
-                    className={classnames({
+                    className={classNames({
                         completed: todo.completed,
                         editing: this.state.editing
                     })}

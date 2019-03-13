@@ -5,8 +5,8 @@ import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../constants/TodoFilters'
 const filterType = types.union(...[SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE].map(types.literal));
 const TODO_FILTERS = {
   [SHOW_ALL]: () => true,
-  [SHOW_COMPLETED]: todo => !todo.completed,
-  [SHOW_ACTIVE]: todo => todo.completed,
+  [SHOW_COMPLETED]: (todo: any) => !todo.completed,
+  [SHOW_ACTIVE]: (todo: any) => todo.completed,
 };
 
 const Todo = types
@@ -19,7 +19,8 @@ const Todo = types
     // self is Todo
     // getRoot(self) is TodoStore
     remove() {
-      getRoot(self).removeTodo(self);
+      const root: any = getRoot(self);
+      root.removeTodo(self);
     },
     edit(text: string) {
       self.text = text;
@@ -34,11 +35,11 @@ const TodoStore = types
     todos: types.array(Todo),
     filter: types.optional(filterType, SHOW_ALL),
   })
-  .views(self => ({
+  .views((self: any) => ({
     // self is TodoStore
     get completedCount(): number {
       // TODO:
-      return self.todos.reduce((count: number, todo) => (todo.completed ? count + 1 : count), 0);
+      return self.todos.reduce((count: number, todo: any) => (todo.completed ? count + 1 : count), 0);
     },
     get activeCount(): number {
       // TODO:
@@ -57,7 +58,7 @@ const TodoStore = types
         text,
       });
     },
-    removeTodo(todo) {
+    removeTodo(todo: any) {
       destroy(todo);
     },
     completeAll() {
@@ -67,7 +68,7 @@ const TodoStore = types
     clearCompleted() {
       self.todos.replace(self.todos.filter(todo => todo.completed === false));
     },
-    setFilter(filter) {
+    setFilter(filter: string) {
       self.filter = filter;
     },
   }));

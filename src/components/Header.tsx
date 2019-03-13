@@ -2,11 +2,11 @@ import React, { Component } from "react"
 import TodoTextInput from "./TodoTextInput"
 
 interface Props {
-    addTodo: () => void;
+    addTodo: (text: string) => void;
 }
 
 export default class Header extends Component<Props> {
-    handleSave = (text: string) => {
+    handleSave = (text: string): void => {
         if (text.length !== 0) {
             this.props.addTodo(text);
         }

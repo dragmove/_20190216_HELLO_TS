@@ -1,7 +1,8 @@
-import React, { Component } from "react"
-import classnames from "classnames"
+import React, { Component, ReactNode } from "react"
 import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from "../constants/TodoFilters"
 import { observer } from "mobx-react"
+const classNames = require("classnames");
+
 
 interface Props {
     store: any;
@@ -15,7 +16,7 @@ const FILTER_TITLES = {
 
 export default observer(
     class Footer extends Component<Props> {
-        renderTodoCount() {
+        renderTodoCount(): ReactNode {
             // prop 으로 TodoStore 를 주입 받음.
             const { activeCount } = this.props.store
             const itemWord = activeCount === 1 ? "item" : "items"
@@ -34,7 +35,7 @@ export default observer(
 
             return (
                 <a
-                    className={classnames({ selected: filter === selectedFilter })}
+                    className={classNames({ selected: filter === selectedFilter })}
                     style={{ cursor: "pointer" }}
                     onClick={() => store.setFilter(filter)}
                 >
@@ -57,7 +58,7 @@ export default observer(
             return null;
         }
 
-        render() {
+        render(): ReactNode {
             return (
                 <footer className="footer">
                     {this.renderTodoCount()}

@@ -2,11 +2,12 @@ import React from "react"
 import Header from "../components/Header"
 import MainSection from "../components/MainSection"
 
-type AppProps = {
+interface Props {
+    // TODO: any to what ?
     store: any
 }
 
-const App = ({ store }: AppProps) => (
+const App = ({ store }: Props) => (
     <div>
         {
             // Header 내부의 하위 컴포넌트부터 입력된 UI 조작으로 store 에 직접 action method 를 호출하고 있다.

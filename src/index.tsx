@@ -10,9 +10,13 @@ import TodoStore from "./models/todos"
 // const
 const localStorageKey:string = "mst-todomvc-example"
 
+function getLocalStorageItem(key: string): any {
+    return window.localStorage.getItem(localStorageKey);
+}
+
 // variables
-const initialState = localStorage.getItem(localStorageKey)
-    ? JSON.parse(window.localStorage.getItem(localStorageKey))
+const initialState = getLocalStorageItem(localStorageKey)
+    ? JSON.parse(getLocalStorageItem(localStorageKey))
     : {
           todos: [
               {
@@ -29,17 +33,17 @@ const initialState = localStorage.getItem(localStorageKey)
       }
 
 let store: any;
-let snapshotListener;
+let snapshotListener: any;
 
 // implement
 renderApp(App, createTodoStore(initialState))
 
 // functions
-function renderApp(App, store) {
+function renderApp(App: any, store: any) {
   render(<App store={store} />, document.getElementById("root"))
 }
 
-function createTodoStore(snapshot) {
+function createTodoStore(snapshot: any) {
   // clean up snapshot listener
   if (snapshotListener) snapshotListener()
 
