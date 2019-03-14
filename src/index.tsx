@@ -50,7 +50,7 @@ function createTodoStore(snapshot: any) {
   // kill old store to prevent accidental use and run clean up hooks
   if (store) destroy(store)
 
-  // create new store from TodoStore
+  // create new store instance from TodoStore model
   store = TodoStore.create(snapshot)
 
   // connect devtools

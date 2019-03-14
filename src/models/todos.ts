@@ -11,12 +11,11 @@ const TODO_FILTERS = {
 
 const Todo = types
   .model({
-    text: types.string,
-    completed: false,
-    id: types.identifierNumber,
+    text: types.string, // no default value
+    completed: types.optional(types.boolean, false), // default value is false.
+    id: types.identifierNumber, // no default value
   })
   .actions(self => ({
-    // self is Todo
     // getRoot(self) is TodoStore
     remove() {
       const root: any = getRoot(self);
@@ -36,21 +35,21 @@ const TodoStore = types
     filter: types.optional(filterType, SHOW_ALL),
   })
   .views((self: any) => ({
+    // "computed" values
+
     // self is TodoStore
     get completedCount(): number {
-      // TODO:
       return self.todos.reduce((count: number, todo: any) => (todo.completed ? count + 1 : count), 0);
     },
     get activeCount(): number {
-      // TODO:
       return self.todos.length - self.completedCount;
     },
     get filteredTodos() {
       return self.todos.filter(TODO_FILTERS[self.filter]);
     },
+    // can define Model views functions here.
   }))
   .actions(self => ({
-    // self is TodoStore
     addTodo(text: string) {
       const id = self.todos.reduce((maxId, todo) => Math.max(todo.id, maxId), -1) + 1;
       self.todos.unshift({
