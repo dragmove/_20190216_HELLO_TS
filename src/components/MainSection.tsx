@@ -2,6 +2,18 @@ import React, { Component, ReactNode } from "react"
 import TodoItem from "./TodoItem"
 import Footer from "./Footer"
 import { observer } from "mobx-react"
+import styled from '@emotion/styled';
+
+const TestAsyncButton = styled.button`
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 120px;
+    height: 40px;
+    background-color: #f00;
+    font-size: 12px;
+    color: #fff;
+`;
 
 interface Props {
     store: any;
@@ -54,6 +66,17 @@ export default observer(
             return null;
         }
 
+        
+        renderTestAsyncButton() {
+            // call async API test.
+            const { callAPI } = this.props.store;
+            return (
+                <TestAsyncButton onClick={() => callAPI()}>
+                    Call Async API
+                </TestAsyncButton>
+            )
+        }
+
         render(): ReactNode {
             // TodoStore 의 view 메소드 getter filteredTodos 에 직접 접근함
             const { filteredTodos } = this.props.store
@@ -70,6 +93,8 @@ export default observer(
                     </ul>
 
                     {this.renderFooter()}
+
+                    {this.renderTestAsyncButton()}
                 </section>
             )
         }
