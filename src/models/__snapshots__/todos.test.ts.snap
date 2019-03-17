@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`can create a instance of Todo model 1`] = `
+Array [
+  Object {
+    "op": "replace",
+    "path": "/text",
+    "value": "test complete",
+  },
+  Object {
+    "op": "replace",
+    "path": "/completed",
+    "value": true,
+  },
+]
+`;

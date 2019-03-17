@@ -1,3 +1,4 @@
+import { getSnapshot, onPatch } from 'mobx-state-tree';
 import { Todo, TodoStore } from './todos';
 
 it('can create a instance of Todo model', () => {
@@ -6,10 +7,33 @@ it('can create a instance of Todo model', () => {
     id: 1,
   });
 
+  // test model values
   expect(todo.completed).toBe(false);
-
   expect(todo.text).toBe('test mobx-state-tree');
   expect(todo.id).toBe(1);
+
+  // test changes by call actions
+  const patches: any[] = [];
+  onPatch(todo, patch => patches.push(patch));
+
+  todo.edit('test complete');
+  expect(todo.text).toBe('test complete');
+
+  /*
+  // can change from
+  expect(getSnapshot(todo)).toEqual({
+    text: 'test complete',
+    completed: false,
+    id: 1,
+  });
+  // to
+  expect(getSnapshot(todo)).toMatchSnapshot();
+  */
+
+  todo.complete();
+  expect(todo.completed).toBe(true);
+
+  expect(patches).toMatchSnapshot();
 });
 
 it('can create a instance of TodoStore model', () => {
