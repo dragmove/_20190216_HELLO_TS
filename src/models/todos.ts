@@ -9,7 +9,7 @@ const TODO_FILTERS = {
   [SHOW_ACTIVE]: (todo: any) => todo.completed,
 };
 
-const Todo = types
+export const Todo = types
   .model('Todo', {
     text: types.string, // no default value
     completed: types.optional(types.boolean, false), // default value is false.
@@ -29,7 +29,7 @@ const Todo = types
     },
   }));
 
-const TodoStore = types
+export const TodoStore = types
   .model('TodoStore', {
     todos: types.array(Todo),
     filter: types.optional(filterType, SHOW_ALL),
@@ -112,11 +112,11 @@ const TodoStore = types
     };
   })
   .preProcessSnapshot(snapshot => {
-    console.log('TodoStore preProcessSnapshot :', snapshot);
+    // console.log('TodoStore preProcessSnapshot :', snapshot);
     return snapshot;
   })
   .postProcessSnapshot(snapshot => {
-    console.log('TodoStore postProcessSnapshot :', snapshot);
+    // console.log('TodoStore postProcessSnapshot :', snapshot);
     return snapshot;
   });
 
